@@ -71,10 +71,10 @@ export function getCSSVarName(variable: string) {
  * @example
  * assignCSSVar(createVar("my-var"), "red");
  */
-export function assignCSSVar<Var extends CSSVarFunction>(
-  variable: Var,
+export function assignCSSVar(
+  variable: CSSVarFunction,
   value: string | number
-): Record<CSSVarFunction, string> {
+): Record<string, string> {
   const varName = getCSSVarName(variable);
   /**
    * Setting the value to a string is important for storing number values as

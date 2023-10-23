@@ -18,11 +18,20 @@ export function generateClassNames({
   viewportColumnWidthCalc: string;
   e: (className: string) => string;
 }): CSSRuleObject {
+  const {
+    addGutter,
+    accountForContainerMarginLeft,
+    inverse,
+    attribute,
+    name,
+    suffix,
+  } = classNameDefinition;
+
   const columnWidthAttrs = {};
   const containerColumnWidthAttrs = {};
   const viewportColumnWidthAttrs = {};
 
-  if (classNameDefinition.addGutter) {
+  if (addGutter) {
     columnWidthCalc = calc.add(columnWidthCalc, innerGutterVar);
     containerColumnWidthCalc = calc.add(
       containerColumnWidthCalc,
@@ -30,7 +39,7 @@ export function generateClassNames({
     );
   }
 
-  if (classNameDefinition.accountForContainerMarginLeft) {
+  if (accountForContainerMarginLeft) {
     /**
      * For when you have a margin-left inside of a cols-container need to
      * account for the cols-container negative margin left
@@ -41,53 +50,44 @@ export function generateClassNames({
     );
   }
 
-  if (classNameDefinition.inverse) {
+  if (inverse) {
     columnWidthCalc = calc.multiply(columnWidthCalc, -1);
     containerColumnWidthCalc = calc.multiply(containerColumnWidthCalc, -1);
     viewportColumnWidthCalc = calc.multiply(viewportColumnWidthCalc, -1);
   }
 
-  if (Array.isArray(classNameDefinition.attribute)) {
-    classNameDefinition.attribute.forEach((attr) => {
+  if (Array.isArray(attribute)) {
+    attribute.forEach((attr) => {
       columnWidthAttrs[attr] = columnWidthCalc;
       containerColumnWidthAttrs[attr] = containerColumnWidthCalc;
       viewportColumnWidthAttrs[attr] = viewportColumnWidthCalc;
     });
   } else {
-    columnWidthAttrs[classNameDefinition.attribute] = columnWidthCalc;
-    containerColumnWidthAttrs[classNameDefinition.attribute] =
-      containerColumnWidthCalc;
-    viewportColumnWidthAttrs[classNameDefinition.attribute] =
-      viewportColumnWidthCalc;
+    columnWidthAttrs[attribute] = columnWidthCalc;
+    containerColumnWidthAttrs[attribute] = containerColumnWidthCalc;
+    viewportColumnWidthAttrs[attribute] = viewportColumnWidthCalc;
   }
 
+  const className = generateClassName(e, { name, variant, suffix });
+
   return {
-    [`${
-      "." +
-      e(
-        classNameDefinition.name +
-          "-" +
-          variant +
-          (classNameDefinition.suffix || "")
-      )
-    }`]: columnWidthAttrs,
-    [`${".cols-container"} > ${
-      "." +
-      e(
-        classNameDefinition.name +
-          "-" +
-          variant +
-          (classNameDefinition.suffix || "")
-      )
-    }`]: containerColumnWidthAttrs,
-    [`${
-      "." +
-      e(
-        classNameDefinition.name +
-          "-" +
-          variant +
-          (classNameDefinition.suffix || "")
-      )
-    }-vw`]: viewportColumnWidthAttrs,
+    [`.${className}`]: columnWidthAttrs,
+    [`.cols-container > .${className}`]: containerColumnWidthAttrs,
+    [`.${className}-vw`]: viewportColumnWidthAttrs,
   };
+}
+
+function generateClassName(
+  e: (className: string) => string,
+  {
+    name,
+    variant,
+    suffix = "",
+  }: {
+    name: string;
+    variant: string;
+    suffix?: string;
+  }
+) {
+  return e(`${name}-${variant}${suffix}`);
 }

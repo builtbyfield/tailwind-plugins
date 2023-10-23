@@ -11,8 +11,13 @@ import {
   scrollbarVisibleWidthVar,
 } from "./vars";
 
+const containerSelector = ".container";
+const breakoutSelector = ".breakout";
+
 export const containerStyles: CSSRuleObject = {
-  ".container": {
+  // Styles for '.container' class
+  [containerSelector]: {
+    // Calculate the width
     width: calc.subtract(
       fallbackCSSVar(containerWidthVar, "100%"),
       calc.multiply(
@@ -29,23 +34,28 @@ export const containerStyles: CSSRuleObject = {
     marginRight: "auto",
     marginLeft: "auto",
   },
-  ".container > *": {
+  // Styles for direct children of '.container'
+  [`${containerSelector} > *`]: {
     ...assignCSSVar(containerOuterGutterVar, "0"),
     ...assignCSSVar(breakoutContainerOuterGutterVar, "0"),
   },
-  ".container-reset": {
+  // Reset container styles
+  [".container-reset"]: {
     width: "unset",
     marginRight: "unset",
     marginLeft: "unset",
   },
-  ".container-reset > *": {
+  // Reset styles for direct children of '.container-reset'
+  [`${containerSelector}-reset > *`]: {
     ...assignCSSVar(
       containerOuterGutterVar,
       fallbackCSSVar(outerGutterVar, "0")
     ),
     ...assignCSSVar(breakoutContainerOuterGutterVar, "inherit"),
   },
-  ".breakout": {
+  // Styles for '.breakout' class
+  [breakoutSelector]: {
+    // Set and calculate gutter variables
     ...assignCSSVar(
       breakoutOuterGutterVar,
       `max(${outerGutterVar}, ${calc.divide(
@@ -65,20 +75,24 @@ export const containerStyles: CSSRuleObject = {
       -2
     ),
   },
-  [".breakout.px-outer-gutter, .breakout > .px-outer-gutter"]: {
-    paddingLeft: breakoutOuterGutterVar,
-    paddingRight: breakoutOuterGutterVar,
-  },
-  [".breakout.pr-outer-gutter, .breakout > .pr-outer-gutter"]: {
-    paddingRight: breakoutOuterGutterVar,
-  },
-  [".breakout.pl-outer-gutter, .breakout > .pl-outer-gutter"]: {
-    paddingLeft: breakoutOuterGutterVar,
-  },
-  ".breakout > .w-outer-gutter": {
+  [`${breakoutSelector}.px-outer-gutter, ${breakoutSelector} > .px-outer-gutter`]:
+    {
+      paddingLeft: breakoutOuterGutterVar,
+      paddingRight: breakoutOuterGutterVar,
+    },
+  [`${breakoutSelector}.pr-outer-gutter, ${breakoutSelector} > .pr-outer-gutter`]:
+    {
+      paddingRight: breakoutOuterGutterVar,
+    },
+  [`${breakoutSelector}.pl-outer-gutter, ${breakoutSelector} > .pl-outer-gutter`]:
+    {
+      paddingLeft: breakoutOuterGutterVar,
+    },
+  [`${breakoutSelector} > .w-outer-gutter`]: {
     width: breakoutOuterGutterVar,
   },
-  ".breakout-reset": {
+  // Reset styles for '.breakout'
+  [`${breakoutSelector}-reset`]: {
     ...assignCSSVar(breakoutOuterGutterVar, outerGutterVar),
     ...assignCSSVar(breakoutContainerOuterGutterVar, "0"),
     position: "unset",

@@ -10,6 +10,8 @@ import {
   outerGutterVar,
 } from "./vars";
 
+const baseSelector = ".layout-overlay";
+
 const overlayWidth = calc.subtract(
   fallbackCSSVar(containerWidthVar, "100%"),
   calc.multiply(2, fallbackCSSVar(outerGutterVar, "0"))
@@ -26,14 +28,14 @@ const gridColumn = calc.divide(
 const gridColumnWithInnerGutter = calc.add(gridColumn, innerGutterVar);
 
 export const layoutOverlayStyles: CSSRuleObject = {
-  ".layout-overlay": {
+  [baseSelector]: {
     position: "fixed",
     zIndex: "9999999999",
     left: "0",
     bottom: "0",
     fontSize: "0",
   },
-  ".layout-overlay-toggle": {
+  [`${baseSelector}-toggle`]: {
     position: "relative",
     zIndex: "2",
     width: "30px",
@@ -45,7 +47,7 @@ export const layoutOverlayStyles: CSSRuleObject = {
     appearance: "none",
     cursor: "pointer",
   },
-  ".layout-overlay-toggle::before, .layout-overlay-toggle::after": {
+  [`${baseSelector}-toggle::before, ${baseSelector}-toggle::after`]: {
     content: "''",
     position: "absolute",
     left: "8px",
@@ -55,10 +57,10 @@ export const layoutOverlayStyles: CSSRuleObject = {
     borderLeft: "1px solid white",
     borderRight: "1px solid white",
   },
-  ".layout-overlay-toggle::after": {
+  [`${baseSelector}-toggle::after`]: {
     left: "16px",
   },
-  ".layout-overlay-grid": {
+  [`${baseSelector}-grid`]: {
     position: "fixed",
     zIndex: "1",
     left: "0",

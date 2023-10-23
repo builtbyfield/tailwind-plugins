@@ -2,7 +2,7 @@ import twPlugin from "tailwindcss/plugin";
 
 import { classNames } from "./class-names";
 import { colsContainerStyles } from "./cols-container-styles";
-import { containerStyles } from "./container";
+import { containerStyles } from "./container-styles";
 import { fixNesting } from "./fix-nesting";
 import { fractions } from "./fractions";
 import { generateByColumn } from "./generate-by-column";

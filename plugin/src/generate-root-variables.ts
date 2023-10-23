@@ -8,6 +8,19 @@ import {
   outerGutterVar,
 } from "./vars";
 
+const rootSelector = ":root";
+
+/**
+ * Generates root variables for the layout.
+ *
+ * @param {object} params - The parameters for generating the root variables.
+ * @param {Record<string, string>} params.breakpoints - The breakpoints for the layout.
+ * @param {Record<string, string>} params.containerWidths - The container widths for the layout.
+ * @param {Record<string, string>} params.columnCounts - The column counts for the layout.
+ * @param {Record<string, string>} params.innerGutters - The inner gutters for the layout.
+ * @param {Record<string, string>} params.outerGutters - The outer gutters for the layout.
+ * @returns {CSSRuleObject[]} The generated root variables.
+ */
 export function generateRootVariables({
   breakpoints,
   containerWidths,
@@ -23,17 +36,13 @@ export function generateRootVariables({
 }): CSSRuleObject[] {
   const firstBreakpoint = breakpoints ? Object.keys(breakpoints)[0] : null;
 
-  // Root variables
-  const rootVariables: CSSRuleObject[] = [];
-
-  Object.keys(breakpoints).forEach((bp) => {
-    const styles: Record<string, Record<string, string>> = {
-      ":root": {
+  return Object.keys(breakpoints).map((bp) => {
+    const styles = {
+      [rootSelector]: {
         ...assignCSSVar(
           containerWidthVar,
           parseInt(containerWidths[bp], 10) ? containerWidths[bp] : "unset"
         ),
-        ...assignCSSVar(innerGutterVar, innerGutters[bp]),
         ...assignCSSVar(innerGutterVar, innerGutters[bp]),
         ...assignCSSVar(outerGutterVar, outerGutters[bp]),
         ...assignCSSVar(gridColumnsVar, columnCounts[bp]),
@@ -41,21 +50,17 @@ export function generateRootVariables({
     };
 
     if (bp === firstBreakpoint) {
-      styles[":root"] = {
-        ...styles[":root"],
+      styles[rootSelector] = {
+        ...styles[rootSelector],
         ...assignCSSVar(gridColumnBackgroundVar, "rgba(127, 255, 255, 0.25)"),
       };
-      rootVariables.push({
-        ...styles,
-      });
+      return styles;
     } else {
-      rootVariables.push({
+      return {
         [`@screen ${bp}`]: {
           ...styles,
         },
-      });
+      };
     }
   });
-
-  return rootVariables;
 }

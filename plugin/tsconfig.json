@@ -7,7 +7,7 @@
     "noImplicitAny": false,
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "outDir": "lib",
+    "outDir": "dist",
     "module": "ESNext",
     "skipLibCheck": true,
     "rootDir": "src",
@@ -16,6 +16,6 @@
   },
   "include": [
     "src/**/*",
-    "lib/index.d.ts" // declaration file path
+    "dist/index.d.ts" // declaration file path
   ]
 }

@@ -1,19 +1,19 @@
 {
-  "name": "layout",
+  "name": "plugin",
   "version": "0.0.1",
   "type": "module",
-  "main": "lib/index.cjs",
-  "module": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "lib",
     "dist"
   ],
   "scripts": {
     "ts-types": "tsc",
-    "build:dev": "rimraf lib && tsup --watch",
+    "build:dev": "rimraf dist && tsup --watch",
     "build:prod": "rimraf dist && env NODE_ENV=production tsup",
-    "build:watch": "tsup --watch"
+    "build:watch": "tsup --watch",
+    "test": "vitest"
   },
   "devDependencies": {
     "@types/cssesc": "^3.0.1",
@@ -27,6 +27,7 @@
     "rimraf": "^5.0.5",
     "tailwindcss": "^3.3.3",
     "tsup": "^7.2.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
   }
 }
