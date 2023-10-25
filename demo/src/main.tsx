@@ -1,4 +1,5 @@
 import "./index.css";
+import "./scrollbar-visible-width";
 
 import React from "react";
 import ReactDOM from "react-dom/client";
