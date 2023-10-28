@@ -25,6 +25,13 @@ test("fallbackCSSVar with CSS variable", () => {
   expect(fallback).toBe("var(--foo, var(--baz))");
 });
 
+test("fallbackCSSVar with multiple fallbacks", () => {
+  const fooVar = createCSSVar("foo");
+  const bazVar = createCSSVar("baz");
+  const fallback = fallbackCSSVar(fooVar, bazVar, "12");
+  expect(fallback).toBe("var(--foo, var(--baz, 12))");
+});
+
 test("getCSSVarName", () => {
   const fooVar = createCSSVar("foo");
   const fooVarName = getCSSVarName(fooVar);
