@@ -16,6 +16,7 @@
     "test": "vitest"
   },
   "devDependencies": {
+    "css-var-utils": "workspace:css-var-utils",
     "@types/cssesc": "^3.0.1",
     "@typescript-eslint/eslint-plugin": "^6.2.1",
     "@typescript-eslint/parser": "^6.2.1",

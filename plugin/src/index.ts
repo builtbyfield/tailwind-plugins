@@ -1,11 +1,10 @@
-import {
-  assignCSSVar,
-  createCSSVar,
-  fallbackCSSVar,
-  getCSSVarName,
-} from "./css-var-utils";
 import { plugin } from "./plugin";
-import type { CSSRuleObject, CSSVarFunction } from "./types";
+import {
+  getScrollBarWidth,
+  scrollbarVisibleWidth,
+  setScrollBarVisible,
+} from "./scrollbar-visible-width";
+import type { CSSRuleObject } from "./types";
 import {
   breakoutContainerOuterGutterVar,
   breakoutOuterGutterVar,
@@ -19,23 +18,22 @@ import {
   scrollbarVisibleWidthVar,
 } from "./vars";
 
-export type { CSSRuleObject, CSSVarFunction };
+export type { CSSRuleObject };
 export {
-  assignCSSVar,
   breakoutContainerOuterGutterVar,
   breakoutOuterGutterVar,
   containerGridColumnsVar,
   containerOuterGutterVar,
   containerWidthVar,
-  createCSSVar,
-  fallbackCSSVar,
-  getCSSVarName,
+  getScrollBarWidth,
   gridColumnBackgroundVar,
   gridColumnsVar,
   innerGutterVar,
   outerGutterVar,
   plugin,
+  scrollbarVisibleWidth,
   scrollbarVisibleWidthVar,
+  setScrollBarVisible,
 };
 
 export default plugin;

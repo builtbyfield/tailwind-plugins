@@ -1,4 +1,6 @@
-import { assignCSSVar } from "./css-var-utils";
+import { assignCSSVar } from "css-var-utils";
+import type { KeyValuePair } from "tailwindcss/types/config";
+
 import type { CSSRuleObject } from "./types";
 import {
   containerWidthVar,
@@ -10,15 +12,17 @@ import {
 
 const rootSelector = ":root";
 
+type OptionValue = string | KeyValuePair;
+
 /**
  * Generates root variables for the layout.
  *
  * @param {object} params - The parameters for generating the root variables.
- * @param {Record<string, string>} params.breakpoints - The breakpoints for the layout.
- * @param {Record<string, string>} params.containerWidths - The container widths for the layout.
- * @param {Record<string, string>} params.columnCounts - The column counts for the layout.
- * @param {Record<string, string>} params.innerGutters - The inner gutters for the layout.
- * @param {Record<string, string>} params.outerGutters - The outer gutters for the layout.
+ * @param {OptionValue} params.breakpoints - The breakpoints for the layout.
+ * @param {OptionValue} params.containerWidths - The container widths for the layout.
+ * @param {OptionValue} params.columnCounts - The column counts for the layout.
+ * @param {OptionValue} params.innerGutters - The inner gutters for the layout.
+ * @param {OptionValue} params.outerGutters - The outer gutters for the layout.
  * @returns {CSSRuleObject[]} The generated root variables.
  */
 export function generateRootVariables({
@@ -28,11 +32,11 @@ export function generateRootVariables({
   innerGutters,
   outerGutters,
 }: {
-  breakpoints: Record<string, string>;
-  containerWidths: Record<string, string>;
-  columnCounts: Record<string, string>;
-  innerGutters: Record<string, string>;
-  outerGutters: Record<string, string>;
+  breakpoints: OptionValue;
+  containerWidths: OptionValue;
+  columnCounts: OptionValue;
+  innerGutters: OptionValue;
+  outerGutters: OptionValue;
 }): CSSRuleObject[] {
   const firstBreakpoint = breakpoints ? Object.keys(breakpoints)[0] : null;
 

@@ -1,0 +1,20 @@
+{
+  "name": "css-var-utils",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@types/cssesc": "^3.0.1",
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1",
+    "cssesc": "^3.0.0",
+    "eslint": "^8.46.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
+  }
+}

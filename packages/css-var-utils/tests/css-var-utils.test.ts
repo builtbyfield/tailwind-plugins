@@ -5,7 +5,7 @@ import {
   createCSSVar,
   fallbackCSSVar,
   getCSSVarName,
-} from "../src/css-var-utils";
+} from "../src";
 
 test("createCSSVar", () => {
   const fooVar = createCSSVar("foo");

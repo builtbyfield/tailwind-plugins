@@ -1,6 +1,9 @@
 import cssesc from "cssesc";
 
-import type { CSSVarFunction } from "./types";
+/**
+ * Type for a CSS variable / custom property function.
+ */
+export type CSSVarFunction = `var(--${string})` | `var(--${string}, ${string})`;
 
 /**
  * Creates a CSS variable function.
@@ -22,7 +25,7 @@ export function createCSSVar(name: string): CSSVarFunction {
  * @returns A CSS variable function.
  *
  * @example
- * fallbackCSSVar("red", "blue"); // "var(--my-var, red, blue)"
+ * fallbackCSSVar("var(--my-var)", "red", "blue"); // "var(--my-var, red, blue)"
  */
 export function fallbackCSSVar(
   ...values: [string, ...Array<string>]
@@ -50,7 +53,7 @@ export function fallbackCSSVar(
  * @returns The variable name.
  *
  * @example
- * getCSSVarName("var(--my-var)"); // "my-var"
+ * getCSSVarName("var(--my-var)"); // "--my-var"
  */
 export function getCSSVarName(variable: string) {
   const matches = variable.match(/^var\((.*)\)$/);

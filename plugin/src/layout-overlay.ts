@@ -1,6 +1,6 @@
 import { calc } from "@vanilla-extract/css-utils";
+import { fallbackCSSVar } from "css-var-utils";
 
-import { fallbackCSSVar } from "./css-var-utils";
 import type { CSSRuleObject } from "./types";
 import {
   containerWidthVar,

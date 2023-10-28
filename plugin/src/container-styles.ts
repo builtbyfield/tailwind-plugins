@@ -1,6 +1,6 @@
 import { calc } from "@vanilla-extract/css-utils";
+import { assignCSSVar, fallbackCSSVar } from "css-var-utils";
 
-import { assignCSSVar, fallbackCSSVar } from "./css-var-utils";
 import type { CSSRuleObject } from "./types";
 import {
   breakoutContainerOuterGutterVar,

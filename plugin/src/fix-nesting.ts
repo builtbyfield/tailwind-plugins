@@ -1,4 +1,5 @@
-import { assignCSSVar } from "./css-var-utils";
+import { assignCSSVar } from "css-var-utils";
+
 import type { CSSRuleObject } from "./types";
 import { containerGridColumnsVar } from "./vars";
 
@@ -8,13 +9,11 @@ import { containerGridColumnsVar } from "./vars";
  * wide columns.
  *
  * @param cols - The number of columns to be nested.
- *
  * @returns A `CSSRuleObject` that contains the base and viewport selectors with
  *          the assigned CSS variable.
  *
  * @example
- *
- * ```typescript
+ * ```ts
  * const cssRuleObject = fixNesting({ cols: 3 });
  * ```
  */
