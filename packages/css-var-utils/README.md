@@ -2,6 +2,16 @@
 
 A collection of utilities for working with CSS variables in TypeScript.
 
+## Table of Contents
+
+- [Functions](#functions)
+  - [`createCSSVar`](#createcssvar)
+  - [`fallbackCSSVar`](#fallbackcssvar)
+  - [`getCSSVarName`](#getcssvarname)
+  - [`assignCSSVar`](#assigncssvar)
+- [Types](#types)
+  - [`CSSVarFunction`](#cssvarfunction)
+
 ## Functions
 
 ### `createCSSVar`
@@ -23,6 +33,8 @@ import { createCSSVar } from "css-var-utils";
 const colsCountVar = createCSSVar("cols-count");
 // -> 'var(--cols-count)'
 ```
+
+---
 
 ### `fallbackCSSVar`
 
@@ -48,6 +60,8 @@ const colsCountWithFallbackVar = fallbackCSSVar(colsCountVar, "12");
 // -> 'var(--cols-count, 12)'
 ```
 
+---
+
 ### `getCSSVarName`
 
 Returns the variable name from a CSS variable function.
@@ -69,6 +83,8 @@ const colsCountVar = createCSSVar("cols-count");
 const colsCountName = getCSSVarName(colsCountVar);
 // -> --cols-count
 ```
+
+---
 
 ### `assignCSSVar`
 
