@@ -1,6 +1,6 @@
 {
   "name": "@builtbyfield/tailwind-plugins",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "main": "plugin/dist/index.cjs",
   "module": "plugin/dist/index.js",
