@@ -11,6 +11,7 @@ export default defineConfig({
   minify: isProd,
   bundle: isProd,
   skipNodeModulesBundle: true,
+  noExternal: ["css-calc-utils", "css-var-utils"],
   watch: env === "development",
   target: "es2020",
   outDir: "dist",
