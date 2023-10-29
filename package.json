@@ -1,6 +1,6 @@
 {
   "name": "@builtbyfield/tailwind-plugins",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "type": "module",
   "main": "plugin/dist/index.cjs",
   "module": "plugin/dist/index.js",
@@ -10,5 +10,8 @@
   ],
   "scripts": {
     "test": "vitest"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
