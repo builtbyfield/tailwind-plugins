@@ -1,7 +1,10 @@
 import { assignCSSVar } from "css-var-utils";
 import type { KeyValuePair } from "tailwindcss/types/config";
 
-import type { CSSRuleObject } from "./types";
+import type {
+  CSSRuleObject,
+  GridColumnBackgroundColorThemeOption,
+} from "./types";
 import {
   containerWidthVar,
   gridColumnBackgroundVar,
@@ -23,7 +26,7 @@ type OptionValue = string | KeyValuePair;
  * @param {OptionValue} params.columnCounts - The column counts for the layout.
  * @param {OptionValue} params.innerGutters - The inner gutters for the layout.
  * @param {OptionValue} params.outerGutters - The outer gutters for the layout.
- * @returns {CSSRuleObject[]} The generated root variables.
+ * @returns The generated root variables.
  */
 export function generateRootVariables({
   breakpoints,
@@ -31,12 +34,14 @@ export function generateRootVariables({
   columnCounts,
   innerGutters,
   outerGutters,
+  gridColumnBackgroundColor,
 }: {
   breakpoints: OptionValue;
   containerWidths: OptionValue;
   columnCounts: OptionValue;
   innerGutters: OptionValue;
   outerGutters: OptionValue;
+  gridColumnBackgroundColor: GridColumnBackgroundColorThemeOption;
 }): CSSRuleObject[] {
   const firstBreakpoint = breakpoints ? Object.keys(breakpoints)[0] : null;
 
@@ -56,7 +61,7 @@ export function generateRootVariables({
     if (bp === firstBreakpoint) {
       styles[rootSelector] = {
         ...styles[rootSelector],
-        ...assignCSSVar(gridColumnBackgroundVar, "rgba(127, 255, 255, 0.25)"),
+        ...assignCSSVar(gridColumnBackgroundVar, gridColumnBackgroundColor),
       };
       return styles;
     } else {

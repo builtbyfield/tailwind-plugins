@@ -1,0 +1,56 @@
+---
+title: Container
+description: This page provides detailed information about the .container class in Tailwind CSS. It explains how to use the .container class to create a contained layout, how to disable the default Tailwind container plugin, and how to use the .breakout class to allow full 100vw elements inside a container. It also covers the nesting of .container inside of .breakout, .breakout-reset and .container-reset.
+---
+
+## Description
+
+By default all components render across the full width of the viewport. You can use the .container class to create a contained layout. The container class uses the values set in outerGutters and containerWidths in your tailwind.config.js to create a responsive container.
+
+Note that the default Tailwind container plugin will need to be disabled.
+
+Also includes a .breakout class to allow full 100vw elements inside a container.
+
+.container makes a container that conforms to your theme.containerWidths taking into account your theme.outerGutters
+.breakout breaks out of a .container, to make your element 100vw wide
+.container-reset resets a .container
+.breakout-reset resets a .breakout
+
+---
+
+## Container
+
+This site has its content wrapped in `<div class="container">`. Youll see it is fluid with outer margins set to theouterGutters for each breakpoint. At then, when the window is wider than 1536px wide (theme.screens.2xl) the main column is a fixed width of 960px (theme.containerWidths.2xl) and centered within the window.
+
+<figure class="container py-5 bg-yellow-500/40">`.container`</figure>
+
+```html
+<div class="container">...</div>
+```
+
+### Container nesting
+
+<figure class="breakout bg-yellow-500/40">
+  <div class="container py-5">`.container > .breakout > .container`</div>
+</figure>
+
+```html
+<div class="container">
+  <div class="breakout">
+    <div class="container">...</div>
+  </div>
+</div>
+```
+
+Nesting of .container inside of .breakout, .breakout-reset and .container-reset should
+all work as expected.
+
+---
+
+## Container Reset
+
+Instead of wrapping all your pages in .container, perhaps you wrap each of your components, and then perhaps at some breakpoint you want go full bleed. In which case .container-reset will be useful. Here, at the lg breakpoint, a .container resets to full bleed:
+
+```html
+<div class="container lg:container-reset">...</div>
+```

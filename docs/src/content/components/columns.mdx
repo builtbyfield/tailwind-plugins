@@ -1,0 +1,455 @@
+---
+title: Columns
+description: This page provides detailed information about the column classes in Tailwind CSS. It explains how to use the column classes to create a column layout, how to use fractions for column widths, and provides examples of different column layouts.
+---
+
+export const exampleContainerClassNames =
+  "layout-background space-y-4 [&_div]:bg-yellow-500/50 [&_div>div]:bg-purple-500/25 [&_div>div>div]:bg-yellow-200/50 [&_div]:whitespace-nowrap [&_div]:h-10 prose-p:ml-0 prose-p:w-full prose-p:my-0";
+
+## Description
+
+This plugin creates classes to handle column layouts:
+
+Where `N` can be a number of columns, up to the largest amount of columns defined or a fraction (`1/2`, `1/3`, `1/4`, `2/3` or `3/4`)
+
+## Demo
+
+<figure class={exampleContainerClassNames}>
+  <div class="w-1-cols">`w-1-cols`</div>
+  <div class="w-2-cols">`w-2-cols`</div>
+  <div class="w-3-cols">`w-3-cols`</div>
+  <div class="w-4-cols">`w-4-cols`</div>
+  <div class="w-5-cols">`w-5-cols`</div>
+  <div class="w-6-cols">`w-6-cols`</div>
+  <div class="w-7-cols">`w-7-cols`</div>
+  <div class="w-8-cols">`w-8-cols`</div>
+  <div class="w-9-cols">`w-9-cols`</div>
+  <div class="w-10-cols">`w-10-cols`</div>
+  <div class="w-11-cols">`w-11-cols`</div>
+  <div class="w-12-cols">`w-12-cols`</div>
+</figure>
+
+```html
+<div class="w-1-cols"></div>
+<div class="w-2-cols"></div>
+<div class="w-3-cols"></div>
+<div class="w-4-cols"></div>
+<div class="w-5-cols"></div>
+<div class="w-6-cols"></div>
+<div class="w-7-cols"></div>
+<div class="w-8-cols"></div>
+<div class="w-9-cols"></div>
+<div class="w-10-cols"></div>
+<div class="w-11-cols"></div>
+<div class="w-12-cols"></div>
+```
+
+As the plugin reads the config, it works out the maximum amount of columns it needs - so if your smallest breakpoint has 4 design columns and the largest has 12 - then it will create classes `.w-1-cols` through `.w-12-cols`.
+
+---
+
+## Using a fraction
+
+Sometimes you want a simpler layout scheme, using %ages of the container width rather than column numbers, but still taking into account the inner gutters. For this you can use fractions.
+
+Fractions can be any of `1/2`, `1/3`, `1/4`, `2/3` or `3/4`.
+
+**Note:** Fractions are consistent across all breakpoints. So, `1/2` will be 50% minus some inner gutter on all breakpoints set, unlike setting via columns whose apparent width will change if the total number of design columns at a breakpoint changes.
+
+<figure class={exampleContainerClassNames}>
+  <div class="w-1/4-cols">`w-1/4-cols`</div>
+  <div class="w-1/3-cols">`w-1/3-cols`</div>
+  <div class="w-1/2-cols">`w-1/2-cols`</div>
+  <div class="w-2/3-cols">`w-2/3-cols`</div>
+  <div class="w-3/4-cols">`w-3/4-cols`</div>
+</figure>
+
+```html
+<div class="w-1/4-cols">w-1/4-cols</div>
+<div class="w-1/3-cols">w-1/3-cols</div>
+<div class="w-1/2-cols">w-1/2-cols</div>
+<div class="w-2/3-cols">w-2/3-cols</div>
+<div class="w-3/4-cols">w-3/4-cols</div>
+```
+
+---
+
+## Responsive
+
+If you use `w-10-cols` and your smallest breakpoint only has 4 design columns then you may also want to use `max-w-full` to stop a container being wider than 100%. Or better, use `w-4-cols` and `lg:w-10-cols`.
+
+Which will be 4 design columns wide until the `lg` breakpoint, when it will become 10 columns wide:
+
+<figure class={exampleContainerClassNames}>
+  <div class="w-4-cols lg:w-10-cols">`w-4-cols lg:w-10-cols`</div>
+</figure>
+
+```html
+<div class="w-4-cols lg:w-10-cols"></div>
+```
+
+And of course, can assign different sizes at all of your breakpoints:
+
+<figure class={exampleContainerClassNames}>
+  <div class="w-4-cols sm:w-3-cols md:w-6-cols lg:w-10-cols xl:w-8-cols 2xl:w-6-cols">
+    `w-4-cols sm:w-3-cols md:w-6-cols lg:w-10-cols xl:w-8-cols 2xl:w-6-cols`
+  </div>
+</figure>
+
+```html
+<div
+  class="w-4-cols sm:w-3-cols md:w-6-cols lg:w-10-cols xl:w-8-cols 2xl:w-6-cols"
+></div>
+```
+
+As previously mentioned, fractions will be consistent on all breakpoints. They can of course be changed per breakpoint:
+
+<figure class={exampleContainerClassNames}>
+  <div class="w-3/4-cols md:w-1/2-cols lg:w-2/3-cols xl:w-1/2-cols">
+    `w-3/4-cols md:w-1/2-cols lg:w-2/3-cols xl:w-1/2-cols`
+  </div>
+</figure>
+
+```html
+<div class="w-3/4-cols md:w-1/2-cols lg:w-2/3-cols xl:w-1/2-cols"></div>
+```
+
+---
+
+## Nesting
+
+When using a `N` number of columns, you can nest elements:
+
+<figure class={exampleContainerClassNames}>
+  <div class="w-8-cols !h-auto py-5">
+    <div class="w-6-cols !h-auto py-5">
+      <div class="w-4-cols">`w-4-cols` inside `w-6-cols` inside `w-8-cols`</div>
+    </div>
+  </div>
+</figure>
+
+```html
+<div class="w-8-cols">
+  <div class="w-6-cols">
+    <div class="w-4-cols">8</div>
+  </div>
+</div>
+```
+
+### Nesting Fractional Columns
+
+Nesting fractions inside fractions will work, but instead halving the breakpoint's total columns, you'll the containers total columns. And so, if you have 12 design columns and you insert `w-1/2-cols` inside `w-1/2-cols`, you'll get one 6 design column wide element wrapping a 3 design column wide element:
+
+<figure class={exampleContainerClassNames}>
+  <div class="w-1/2-cols">
+    <div class="w-1/2-cols">`w-1/2-cols` inside `w-1/2-cols`</div>
+  </div>
+</figure>
+
+```html
+<div class="w-1/2-cols">
+  <div class="w-1/2-cols"></div>
+</div>
+```
+
+Mixing and matching `N` cols widths and fractional widths when nesting may give you unexpected results. A fraction as a child of a `N` cols width will work as expected:
+
+<figure class={exampleContainerClassNames}>
+  <div class="w-8-cols">
+    <div class="w-1/2-cols">`w-1/2-cols` inside `w-8-cols`</div>
+  </div>
+</figure>
+
+```html
+<div class="w-8-cols">
+  <div class="w-1/2-cols"></div>
+</div>
+```
+
+But, placing a `N` cols widths inside a fractional width column will not work as fractional widths work cross breakpoint regardless of column count and so don't set/reset the columns total inside themselves. In this scenario, the `N` cols width assumes the fractional width column container has total columns at that breakpoint. So, if you have 12 design columns and you set a `w-3-cols` inside of `w-1/2-cols`, you'll end up with a 1.5 column wide child column:
+
+<figure class={exampleContainerClassNames}>
+  <div class="w-1/2-cols">
+    <div class="w-3-cols">`w-3-cols` inside `w-1/2-cols`</div>
+  </div>
+</figure>
+
+```html
+<div class="w-1/2-cols">
+  <div class="w-3-cols"></div>
+</div>
+```
+
+You end up with a 1.5 wide column in that example because 3/12 columns is 1/4 of the total columns, the fractional 1/2 shrinks the 12 columns to fit in a 6 col wide contaner, 1/4 of 6 is 1.5.
+
+---
+
+## Compatibility with CSS Grid plugin features
+
+As both plugins use the same set of `:root` variables, they can be nested inside of each other:
+
+<figure class={exampleContainerClassNames}>
+  <div class="w-8-cols">
+    <div class="grid-container">
+      <div class="grid-col-span-2"></div>
+      <div class="grid-col-span-3"></div>
+      <div class="grid-col-span-1"></div>
+    </div>
+  </div>
+</figure>
+
+```html
+<div class="w-8-cols">
+  <div class="grid-container">
+    <div class="grid-col-span-2"></div>
+    <div class="grid-col-span-3"></div>
+    <div class="grid-col-span-1"></div>
+  </div>
+</div>
+```
+
+---
+
+## Inside `.cols-container`
+
+If you want to make layout grids, using flex as opposed to CSS Grid, you may want to use `.cols-container`. This adds some auto gutter margins to `.w-N-cols` children:
+
+<figure class="layout-background prose-p:ml-0 prose-p:w-full prose-p:my-0">
+  <div class="cols-container [&_div]:bg-yellow-500/50 [&_div>div]:bg-purple-500/25 [&_div>div>div]:bg-yellow-200/50 [&_div]:whitespace-nowrap [&>div]:h-10">
+    <div class="w-1-cols"></div>
+    <div class="w-1-cols"></div>
+    <div class="w-1-cols"></div>
+    <div class="w-1-cols"></div>
+    <div class="w-3-cols"></div>
+  </div>
+</figure>
+
+```html
+<div class="cols-container">
+  <div class="w-1-cols"></div>
+  <div class="w-1-cols"></div>
+  <div class="w-1-cols"></div>
+  <div class="w-3-cols"></div>
+</div>
+```
+
+`.cols-container` has a negative gutter margin left.
+Fractions, responsive and nesting works within `.cols-container`.
+
+If you need to zero out the margin left for some reason, you can use `.ml-0`:
+
+<figure class="layout-background prose-p:ml-0 prose-p:w-full prose-p:my-0">
+  <div class="cols-container [&_div]:bg-yellow-500/50 [&_div>div]:bg-purple-500/25 [&_div>div>div]:bg-yellow-200/50 [&_div]:whitespace-nowrap [&>div]:h-10">
+    <div class="w-1-cols"></div>
+    <div class="w-2-cols !bg-purple-500/50 ml-0"></div>
+  </div>
+</figure>
+
+```html
+<div class="cols-container">
+  <div class="w-1-cols"></div>
+  <div class="w-2-cols ml-0"></div>
+</div>
+```
+
+**Note:** `.ml-0` is essentially Tailwind's `.ml-0` but with a child relationship selector to add weight to the selector.
+
+---
+
+## Margins
+
+Classes for `.ml-`, `.mr-` and `.mx-`, and their negative equivilants (`.-ml-`, `.-mr-`, `.-mx-`) are also generated:
+
+<figure class="layout-background prose-p:ml-0 prose-p:w-full prose-p:my-0">
+  <div class="cols-container [&_div]:bg-yellow-500/50 [&_div>div]:bg-purple-500/25 [&_div>div>div]:bg-yellow-200/50 [&_div]:whitespace-nowrap [&>div]:h-10">
+    <div class="w-1-cols ml-2-cols"></div>
+  </div>
+</figure>
+
+```html
+<div class="cols-container">
+  <div class="w-1-cols ml-2-cols"></div>
+</div>
+```
+
+If your content is aligned right, say with `.justify-end` and you want to push items away from the right, you can use `.mr-N-cols`:
+
+<figure class="layout-background prose-p:ml-0 prose-p:w-full prose-p:my-0">
+  <div class="flex justify-end [&_div]:bg-yellow-500/50 [&_div>div]:bg-purple-500/25 [&_div>div>div]:bg-yellow-200/50 [&_div]:whitespace-nowrap [&>div]:h-10">
+    <div class="w-1-cols mr-1-cols"></div>
+  </div>
+</figure>
+
+```html
+<div class="flex justify-end">
+  <div class="w-1-cols ml-2-cols"></div>
+</div>
+```
+
+You can also push by fractions, which by their design, account for gutters:
+
+<figure class="layout-background prose-p:ml-0 prose-p:w-full prose-p:my-0">
+  <div class="flex [&_div]:bg-yellow-500/50 [&_div>div]:bg-purple-500/25 [&_div>div>div]:bg-yellow-200/50 [&_div]:whitespace-nowrap [&>div]:h-10">
+    <div class="w-1/3-cols ml-2/3-cols">`w-1/3-cols ml-2/3-cols`</div>
+  </div>
+</figure>
+
+```html
+<div class="flex">
+  <div class="w-1/3-cols ml-2/3-cols"></div>
+</div>
+```
+
+And, within `.cols-container`:
+
+<figure class="layout-background prose-p:ml-0 prose-p:w-full prose-p:my-0">
+  <div class="cols-container [&_div]:bg-yellow-500/50 [&_div>div]:bg-purple-500/25 [&_div>div>div]:bg-yellow-200/50 [&_div]:whitespace-nowrap [&>div]:h-10">
+    <div class="w-1/2-cols ml-1/4-cols">`w-1/2-cols ml-1/4-cols`</div>
+  </div>
+</figure>
+
+```html
+<div class="cols-container">
+  <div class="w-1/2-cols ml-1/4-cols"></div>
+</div>
+```
+
+---
+
+## Padding
+
+Much like margins, padding classes are also generated: `.pl-`, `.pr-` and `.px-`.
+
+<figure class="layout-background prose-p:ml-0 prose-p:w-full prose-p:my-0">
+  <div class=" [&_div]:bg-yellow-500/50 [&_div>div]:bg-purple-500/25 [&_div>div>div]:bg-yellow-200/50 [&_div]:whitespace-nowrap [&>div]:h-10">
+    <div class="pl-2-cols pr-4-cols !h-20 pt-5">
+      <div class="">100% wide inside of `pl-2-cols pr-4-cols`</div>
+    </div>
+  </div>
+</figure>
+
+```html
+<div class="pl-2-cols pr-4-cols">
+  <div></div>
+</div>
+```
+
+Padding and nesting do not mix very well, as the padded amount isn't accounted for in the width calc. Fractional widths will still align to the grid:
+
+<figure class="layout-background prose-p:ml-0 prose-p:w-full prose-p:my-0">
+  <div class=" [&_div]:bg-yellow-500/50 [&_div>div]:bg-purple-500/25 [&_div>div>div]:bg-yellow-200/50 [&_div]:whitespace-nowrap [&>div]:h-10">
+    <div class="pl-2-cols !h-20 pt-5">
+      <div class="w-1/2-cols">`w-1/2-cols` inside of `pl-2`-cols</div>
+    </div>
+  </div>
+</figure>
+
+```html
+<div class="pl-2-cols">
+  <div class="w-1/2-cols"></div>
+</div>
+```
+
+In our 12 design columm grid, padding the left by 2 columns leaves 10 columns, 1/2 of 10 is 5 and so the child div in the example above is 5 design columns wide.
+
+---
+
+## Positioning
+
+You can also `left-N-cols`, `left-N-cols-gutter`, `right-N-cols` and `right-N-cols-gutter` for `position: absolute;` type positioning (or maybe with `position: relative;` depending on your use case).
+
+Fractions and responsive work as expected and nesting will work, if you apply a `w-N-cols` class.
+
+<figure class="layout-background relative h-24 [&_div]:bg-yellow-500/50 [&_div>div]:bg-purple-500/25 [&_div>div>div]:bg-yellow-200/50 [&_div]:whitespace-nowrap [&>div]:h-10 prose-p:ml-0 prose-p:w-full prose-p:my-0">
+  <div class="w-3-cols absolute top-0 left-1-cols">`w-3-cols left-1-cols`</div>
+  <div class="w-1/3-cols absolute top-14 left-1/3-cols">
+    `w-1/3-cols left-1/3-cols`
+  </div>
+</figure>
+
+```html
+<div class="relative h-24">
+  <div class="w-3-cols h-10 absolute top-0 left-1-cols"></div>
+  <div class="w-1/3-cols h-10 absolute top-14 left-1/3-cols"></div>
+</div>
+```
+
+Push and pull classes, with or without gutters, will also work:
+
+<figure class="layout-background relative h-24 [&_div]:bg-yellow-500/50 [&_div>div]:bg-purple-500/25 [&_div>div>div]:bg-yellow-200/50 [&_div]:whitespace-nowrap [&>div]:h-10 prose-p:ml-0 prose-p:w-full prose-p:my-0">
+  <div class="w-2-cols absolute top-0 left-0 ml-2-cols">`left-0 ml-2-cols`</div>
+  <div class="w-2-cols absolute top-14 right-0 mr-2-cols">
+    `right-0 mr-2-cols`
+  </div>
+</figure>
+
+```html
+<div class="relative">
+  <div class="w-2-cols absolute top-0 left-0 ml-2-cols"></div>
+  <div class="w-2-cols absolute top-40 right-0 mr-2-cols"></div>
+</div>
+```
+
+---
+
+## Gutter-less classes
+
+Margin, padding and positioning classes also have gutter-less versions. That is, you can position things to the edge of the preceding column rather than the following column:
+
+<figure class="layout-background prose-p:ml-0 prose-p:w-full prose-p:my-0">
+  <div class="cols-container [&_div]:bg-yellow-500/50 [&_div>div]:bg-purple-500/25 [&_div>div>div]:bg-yellow-200/50 [&_div]:whitespace-nowrap [&>div]:h-10">
+    <div class="w-3-cols ml-2-cols-no-gutter">
+      `w-3-cols ml-2-cols-no-gutter`
+    </div>
+  </div>
+</figure>
+
+```html
+<div class="cols-container">
+  <div class="w-3-cols ml-2-cols-no-gutter"></div>
+</div>
+```
+
+---
+
+## `vw` calc variants
+
+Regular layout classes `w-3-cols` use a CSS `calc()` based on 100% container width and a `--grid-columns` variable to split the container width as required.
+
+Sometimes, you might need to set an element on the grid, where you container is some other width, such as inside `.breakout`'s or perhaps inside a carousel. In these case the standard `w-3-cols` type classes may not work, and you may need to use `vw` based alternatives.
+
+<figure class="breakout">
+  <div class="after:absolute relative after:inset-0 after:container space-y-4 after:layout-background prose-p:ml-0 prose-p:w-full prose-p:my-0 [&_div]:bg-yellow-500/50 [&_div>div]:bg-purple-500/25 [&_div>div>div]:bg-yellow-200/50 [&_div]:whitespace-nowrap [&>div]:h-10">
+    <div class="w-4-cols ml-outer-gutter">using `w-4-cols` ❌ - too wide</div>
+    <div class="w-3-cols-vw ml-outer-gutter">
+      using `w-4-cols-vw` ✅ - on grid
+    </div>
+  </div>
+</figure>
+
+```html
+<div class="breakout">
+  <div class="w-4-cols ml-outer-gutter">
+    <p>using <code>w-4-cols</code> ❌ - too wide</p>
+  </div>
+  <div class="w-4-cols-vw ml-outer-gutter">
+    <p>using <code>w-4-cols-vw</code> ✅ - on grid</p>
+  </div>
+</div>
+```
+
+`w-4-cols` draws the `div` too wide, as the parent container is wider than `.container`. The suffix of `-vw` alters the `calc` to base the `calc`s off of `100vw`.
+
+But, to make this work, we need to account for the scrollbar width.
+
+### Additional set up for working with gutters inside `.breakout`
+
+The `.*-vw` type classes uses `100vw` as its base, which, frustratingly is likely wider than the document as the document can take up `100vw` minus the scrollbar width. So, to use `.*-vw` type classes, we need to account for the scrollbar width:
+
+```ts
+import { scrollbarVisibleWidth } from "@builtbyfield/tailwind-plugins";
+
+scrollbarVisibleWidth(); // sets `--scrollbar-visible-width` CSS variable on document root (<html>) element
+```
+
+This also makes sure the `.p?-outer-gutter` type Breakout classes (`.w-2-cols-vw`, `.ml-2-cols-vw`, etc.) will work correctly inside of `.breakout` type content.

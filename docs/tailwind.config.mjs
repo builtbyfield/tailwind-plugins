@@ -1,9 +1,10 @@
 import tailwindTypography from "@tailwindcss/typography";
 import layout from "plugin";
+import tailwindScrollbar from "tailwind-scrollbar";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     screens: {
       // Default Tailwind breakpoints
@@ -14,13 +15,22 @@ export default {
       xl: "1280px",
       "2xl": "1536px",
     },
-    extend: {},
+    extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: null,
+          },
+        },
+      },
+    },
   },
   corePlugins: {
     container: false,
   },
   plugins: [
     tailwindTypography(),
+    tailwindScrollbar({ nocompatible: true }),
     layout({
       containerWidths: {
         // We use DEFAULT to set the default value for all breakpoints
@@ -40,21 +50,22 @@ export default {
         "2xl": 12,
       },
       innerGutters: {
-        DEFAULT: "1rem",
-        sm: "1rem",
-        md: "1.5rem",
-        lg: "1.5rem",
-        xl: "2rem",
-        "2xl": "2rem",
+        DEFAULT: "30px",
+        sm: "30px",
+        md: "30px",
+        lg: "30px",
+        xl: "30px",
+        "2xl": "30px",
       },
       outerGutters: {
-        DEFAULT: "1rem",
-        sm: "1rem",
-        md: "2rem",
-        lg: "3rem",
-        xl: "4rem",
-        "2xl": "4rem",
+        DEFAULT: "30px",
+        sm: "30px",
+        md: "30px",
+        lg: "30px",
+        xl: "30px",
+        "2xl": "30px",
       },
+      gridColumnBackgroundColor: "rgba(0, 0, 255, 0.075)",
     }),
   ],
 };

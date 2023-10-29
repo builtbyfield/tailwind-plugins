@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+
+import Layout from "../../layouts/layout.astro";
+
+export async function getStaticPaths() {
+  const componentEntries = await getCollection("components");
+  return componentEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+
+const { Content } = await entry.render();
+---
+
+<Layout title={entry.title} description={entry.description}>
+  <main class="py-24">
+    <article
+      class:list={[
+        "container",
+        "prose prose-base prose-neutral",
+        "prose-h1:text-6xl prose-h1:w-full prose-h1:clear-both",
+        "prose-lead:text-2xl prose-lead:w-full prose-lead:ml-0 prose-lead:clear-both prose-lead:mb-[3em] prose-lead:max-w-prose",
+        "prose-headings:font-medium prose-headings:w-4-cols prose-headings:mt-0 prose-headings:float-left prose-headings:clear-left",
+        "prose-p:w-8-cols prose-p:ml-4-cols",
+        "prose-figure:clear-both",
+        "prose-pre:clear-both prose-pre:scrollbar-track-neutral-600 prose-pre:scrollbar-track-rounded-full prose-pre:scrollbar-thumb-rounded-full prose-pre:!bg-neutral-800 prose-pre:scrollbar-thumb-neutral-500 prose-pre:scrollbar-thin",
+        "prose-hr:clear-both",
+      ]}
+    >
+      <h1>{entry.data.title}</h1>
+      <p class="lead">{entry.data.description}</p>
+      <Content />
+    </article>
+  </main>
+</Layout>

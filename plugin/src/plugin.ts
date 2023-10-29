@@ -1,3 +1,4 @@
+import { fallbackCSSVar } from "css-var-utils";
 import twPlugin from "tailwindcss/plugin";
 import type { CSSRuleObject as TailwindCSSRuleObject } from "tailwindcss/types/config";
 
@@ -11,15 +12,28 @@ import { layoutOverlayStyles } from "./layout-overlay";
 import type {
   ColumnCountsThemeOption,
   ContainerWidthsThemeOption,
+  GridColumnBackgroundColorThemeOption,
   InnerGuttersThemeOption,
   OuterGuttersThemeOption,
 } from "./types";
+import {
+  breakoutContainerOuterGutterVar,
+  breakoutOuterGutterVar,
+  containerGridColumnsVar,
+  containerOuterGutterVar,
+  containerWidthVar,
+  gridColumnsVar,
+  innerGutterVar,
+  outerGutterVar,
+  scrollbarVisibleWidthVar,
+} from "./vars";
 
 type Options = {
   containerWidths?: ContainerWidthsThemeOption;
   columnCounts?: ColumnCountsThemeOption;
   innerGutters?: InnerGuttersThemeOption;
   outerGutters?: InnerGuttersThemeOption;
+  gridColumnBackgroundColor?: GridColumnBackgroundColorThemeOption;
 };
 
 export const plugin = twPlugin.withOptions<Options>(
@@ -42,6 +56,9 @@ export const plugin = twPlugin.withOptions<Options>(
         string,
         string
       >;
+      const gridColumnBackgroundColor = theme(
+        "gridColumnBackgroundColor"
+      ) as GridColumnBackgroundColorThemeOption;
 
       /**
        * Get the max column count from the largest of the theme's columnCounts
@@ -57,6 +74,7 @@ export const plugin = twPlugin.withOptions<Options>(
         columnCounts,
         innerGutters,
         outerGutters,
+        gridColumnBackgroundColor,
       });
       addBase(rootVariables as unknown as TailwindCSSRuleObject[]);
 
@@ -117,6 +135,9 @@ export const plugin = twPlugin.withOptions<Options>(
       "2xl": "1rem",
     };
 
+    const gridColumnBackgroundColor: GridColumnBackgroundColorThemeOption =
+      options.gridColumnBackgroundColor ?? "rgba(127, 255, 255, 0.25)";
+
     /**
      * Provide default values
      */
@@ -126,6 +147,20 @@ export const plugin = twPlugin.withOptions<Options>(
         columnCounts,
         innerGutters,
         outerGutters,
+        gridColumnBackgroundColor,
+        extend: {
+          spacing: {
+            ["container-width"]: containerWidthVar,
+            ["gutter"]: innerGutterVar,
+            ["inner-gutter"]: innerGutterVar,
+            ["outer-gutter"]: outerGutterVar,
+            ["container-outer-gutter"]: containerOuterGutterVar,
+            ["breakout-outer-gutter"]: breakoutOuterGutterVar,
+            ["breakout-container-outer-gutter"]:
+              breakoutContainerOuterGutterVar,
+            ["scrollbar-visible-width"]: scrollbarVisibleWidthVar,
+          },
+        },
       },
     };
   }

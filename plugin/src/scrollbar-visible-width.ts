@@ -91,35 +91,13 @@ export function setScrollBarVisible(): void {
  * It also listens to the window's load and resize events to adjust the scrollbar width accordingly.
  *
  * @function scrollbarVisibleWidth
- * @param {Object} [throttleOptions] - The options for throttling the setScrollBarVisible function.
- * @param {boolean|number} [throttleOptions.throttle=true] - Whether or not to throttle the setScrollBarVisible function.
  * @returns {void} Returns a void value but sets the CSS variable `--scrollbar-visible-width` to the width of the scrollbar.
  */
-export function scrollbarVisibleWidth({
-  throttle: _throttle = 200,
-}: {
-  throttle?: boolean | number;
-}): void {
-  const setScrollBarVisibleFn = () => {
-    // If throttleOptions is false or less than or equal to 0, don't throttle the setScrollBarVisible function
-    if (
-      (typeof _throttle === "boolean" && _throttle === false) ||
-      (typeof _throttle === "number" && _throttle <= 0)
-    ) {
-      return setScrollBarVisible();
-    }
-
-    if (typeof _throttle === "boolean" && _throttle === true) {
-      // Throttled version of setScrollBarVisible function with a default throttle of 200ms
-      return throttle(setScrollBarVisible, 200);
-    }
-
-    // Throttled version of setScrollBarVisible function
-    return throttle(setScrollBarVisible, _throttle);
-  };
+export function scrollbarVisibleWidth(): void {
+  const throttledSetScrollBarVisible = throttle(setScrollBarVisible, 200);
 
   // Call the setScrollBarVisible function when the window is loaded
-  window.addEventListener("load", setScrollBarVisibleFn);
+  window.addEventListener("load", throttledSetScrollBarVisible);
   // Call the setScrollBarVisible function when the window is resized
-  window.addEventListener("resize", setScrollBarVisibleFn);
+  window.addEventListener("resize", throttledSetScrollBarVisible);
 }

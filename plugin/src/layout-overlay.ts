@@ -74,9 +74,18 @@ export const layoutOverlayStyles: CSSRuleObject = {
         90deg,
         ${gridColumnBackgroundVar},
         ${gridColumnBackgroundVar} ${gridColumn},
-        rgba(0,0,0,0) ${gridColumn},
-        rgba(0,0,0,0) ${gridColumnWithInnerGutter}
+        transparent ${gridColumn},
+        transparent ${gridColumnWithInnerGutter}
       )`,
     pointerEvents: "none",
+  },
+  [".layout-background"]: {
+    background: `repeating-linear-gradient(
+        90deg,
+        ${gridColumnBackgroundVar},
+        ${gridColumnBackgroundVar} ${gridColumn},
+        transparent ${gridColumn},
+        transparent ${gridColumnWithInnerGutter}
+      )`,
   },
 };

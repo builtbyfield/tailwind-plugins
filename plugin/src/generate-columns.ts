@@ -15,76 +15,155 @@ import {
 } from "./vars";
 
 /**
- * This function calculates the width of a column based on the number of
- * columns, the gutter variable, the container variable, and the grid variable.
+ * Calculates the width of a column in a grid layout.
  *
- * @param {number} cols - The number of columns.
- * @param {CSSVarFunction} gutterVar - The gutter variable.
- * @param {CSSVarFunction} containerVar - The container variable.
- * @param {CSSVarFunction} gridVar - The grid variable.
- * @returns {string} The calculated column width.
+ * The function takes an object with four properties: `cols`, `innerGutterVar`, `containerGridColumnsVar`, and `gridColumnsVar`.
+ * - `cols` is the number of columns in the grid.
+ * - `innerGutterVar` is the width of the gutter between columns.
+ * - `containerGridColumnsVar` is the total width of the container.
+ * - `gridColumnsVar` is the number of grid columns.
+ *
+ * The function calculates the width of a single column as a percentage of the total container width,
+ * adjusted for the number of columns and the width of the gutters. The result is returned as a string
+ * representing a CSS value (e.g., '20%').
+ *
+ * @param params The parameters for the calculation.
+ * @param params.cols The number of columns in the grid.
+ * @param params.innerGutterVar The width of the gutter between columns.
+ * @param params.containerGridColumnsVar The total width of the container.
+ * @param params.gridColumnsVar The number of grid columns.
+ * @returns The calculated width of a single column, as a CSS value.
  */
-function calculateColumnWidth(
-  cols: number,
-  gutterVar: CSSVarFunction,
-  containerVar: CSSVarFunction,
-  gridVar: CSSVarFunction
-): string {
+function calculateColumnWidth({
+  cols,
+  innerGutterVar,
+  containerGridColumnsVar,
+  gridColumnsVar,
+}: {
+  cols: number;
+  innerGutterVar: CSSVarFunction;
+  containerGridColumnsVar: CSSVarFunction;
+  gridColumnsVar: CSSVarFunction;
+}): string {
+  const totalGridColumns = fallbackCSSVar(
+    containerGridColumnsVar,
+    gridColumnsVar
+  );
+
   return calc.subtract(
-    calc.multiply(
-      calc.divide(cols, fallbackCSSVar(containerVar, gridVar)),
-      "100%"
-    ),
+    calc.multiply(calc.divide(cols, totalGridColumns), "100%"),
     calc.subtract(
-      gutterVar,
-      calc.multiply(
-        calc.divide(cols, fallbackCSSVar(containerVar, gridVar)),
-        gutterVar
-      )
+      innerGutterVar,
+      calc.multiply(calc.divide(cols, totalGridColumns), innerGutterVar)
     )
   );
 }
 
 /**
- * This function calculates the width of a column based on the number of
- * columns, the container variable, the scrollbar variable, the gutter variable,
- * the outer gutter variable, and the grid variable.
+ * Calculates the width of a container column in a grid layout.
  *
- * @param {number} cols - The number of columns.
- * @param {CSSVarFunction} containerVar - The container variable.
- * @param {CSSVarFunction} scrollbarVar - The scrollbar variable.
- * @param {CSSVarFunction} gutterVar - The gutter variable.
- * @param {CSSVarFunction} outerGutterVar - The outer gutter variable.
- * @param {CSSVarFunction} gridVar - The grid variable.
- * @returns {string} The calculated viewport column width.
+ * The function takes an object with four properties: `cols`, `innerGutterVar`, `containerGridColumnsVar`, and `gridColumnsVar`.
+ * - `cols` is the number of columns in the grid.
+ * - `innerGutterVar` is the width of the gutter between columns.
+ * - `containerGridColumnsVar` is the total width of the container.
+ * - `gridColumnsVar` is the number of grid columns.
+ *
+ * The function calculates the width of a single column as a percentage of the total container width,
+ * adjusted for the number of columns and the width of the gutters. The result is returned as a string
+ * representing a CSS value (e.g., '20%').
+ *
+ * @param params The parameters for the calculation.
+ * @param params.cols The number of columns in the grid.
+ * @param params.innerGutterVar The width of the gutter between columns.
+ * @param params.containerGridColumnsVar The total width of the container.
+ * @param params.gridColumnsVar The number of grid columns.
+ * @returns The calculated width of a single column, as a CSS value.
  */
-function calculateViewportColumnWidth(
-  cols: number,
-  containerVar: CSSVarFunction,
-  scrollbarVar: CSSVarFunction,
-  gutterVar: CSSVarFunction,
-  outerGutterVar: CSSVarFunction,
-  gridVar: CSSVarFunction
-): string {
+function calculateContainerColumnWidth({
+  cols,
+  innerGutterVar,
+  containerGridColumnsVar,
+  gridColumnsVar,
+}: {
+  cols: number;
+  innerGutterVar: CSSVarFunction;
+  containerGridColumnsVar: CSSVarFunction;
+  gridColumnsVar: CSSVarFunction;
+}): string {
+  const totalGridColumns = fallbackCSSVar(
+    containerGridColumnsVar,
+    gridColumnsVar
+  );
+
+  return calc.subtract(
+    calc.multiply(
+      calc.divide(cols, totalGridColumns),
+      calc.subtract("100%", innerGutterVar)
+    ),
+    calc.subtract(
+      innerGutterVar,
+      calc.multiply(calc.divide(cols, totalGridColumns), innerGutterVar)
+    )
+  );
+}
+
+/**
+ * Calculates the width of a viewport column in a grid layout.
+ *
+ * The function takes an object with six properties: `cols`, `containerWidthVar`, `scrollbarVisibleWidthVar`, `innerGutterVar`, `outerGutterVar`, and `gridColumnsVar`.
+ * - `cols` is the number of columns in the grid.
+ * - `containerWidthVar` is the total width of the container.
+ * - `scrollbarVisibleWidthVar` is the width of the scrollbar.
+ * - `innerGutterVar` is the width of the gutter between columns.
+ * - `outerGutterVar` is the width of the outer gutter.
+ * - `gridColumnsVar` is the number of grid columns.
+ *
+ * The function calculates the width of a single column as a percentage of the total container width,
+ * adjusted for the number of columns, the width of the gutters, and the width of the scrollbar.
+ * The result is returned as a string representing a CSS value (e.g., '20%').
+ *
+ * @param params The parameters for the calculation.
+ * @param params.cols The number of columns in the grid.
+ * @param params.containerWidthVar The total width of the container.
+ * @param params.scrollbarVisibleWidthVar The width of the scrollbar.
+ * @param params.innerGutterVar The width of the gutter between columns.
+ * @param params.outerGutterVar The width of the outer gutter.
+ * @param params.gridColumnsVar The number of grid columns.
+ * @returns The calculated width of a single viewport column, as a CSS value.
+ */
+function calculateViewportColumnWidth({
+  cols,
+  containerWidthVar,
+  scrollbarVisibleWidthVar,
+  innerGutterVar,
+  outerGutterVar,
+  gridColumnsVar,
+}: {
+  cols: number;
+  containerWidthVar: CSSVarFunction;
+  scrollbarVisibleWidthVar: CSSVarFunction;
+  innerGutterVar: CSSVarFunction;
+  outerGutterVar: CSSVarFunction;
+  gridColumnsVar: CSSVarFunction;
+}): string {
+  const scrollbarWidth = fallbackCSSVar(scrollbarVisibleWidthVar, "0px");
+
   let viewportColumnWidthCalc = calc.divide(
     calc.subtract(
-      fallbackCSSVar(
-        containerVar,
-        calc.subtract("100vw", fallbackCSSVar(scrollbarVar, "0px"))
-      ),
+      fallbackCSSVar(containerWidthVar, calc.subtract("100vw", scrollbarWidth)),
       calc.add(
-        calc.multiply(calc.subtract(gridVar, "1"), gutterVar),
+        calc.multiply(calc.subtract(gridColumnsVar, "1"), innerGutterVar),
         calc.multiply("2", outerGutterVar)
       )
     ),
-    gridVar
+    gridColumnsVar
   );
 
   if (cols > 1) {
     viewportColumnWidthCalc = calc.multiply(viewportColumnWidthCalc, cols);
     viewportColumnWidthCalc = calc.add(
       viewportColumnWidthCalc,
-      calc.multiply(calc.subtract(cols, 1), gutterVar)
+      calc.multiply(calc.subtract(cols, 1), innerGutterVar)
     );
   }
 
@@ -92,15 +171,19 @@ function calculateViewportColumnWidth(
 }
 
 /**
- * This function generates CSS rules for each column in the grid. It takes an
- * object as an argument with properties 'cols' and 'e'. 'cols' is the number of
- * columns in the grid and 'e' is a function that takes a className as an
- * argument and returns a string.
+ * Generates CSS rules for each column in a grid layout.
  *
- * @param {Object} params - The parameters for generating the CSS rules.
- * @param {number} params.cols - The number of columns in the grid.
- * @param {function} params.e - A function that takes a className as an argument and returns a string.
- * @returns {CSSRuleObject[]} An array of CSSRuleObjects, each representing a CSS rule for a column in the grid.
+ * The function takes an object with two properties: `cols` and `e`.
+ * - `cols` is the number of columns in the grid.
+ * - `e` is a function that takes a className as an argument and returns a string.
+ *
+ * The function generates CSS rules for each column, taking into account the number of columns and the className function.
+ * The result is an array of CSSRuleObjects, each representing a CSS rule for a column in the grid.
+ *
+ * @param params The parameters for generating the CSS rules.
+ * @param params.cols The number of columns in the grid.
+ * @param params.e A function that takes a className as an argument and returns a string.
+ * @returns An array of CSSRuleObjects, each representing a CSS rule for a column in the grid.
  */
 export function generateByColumn({
   cols,
@@ -112,26 +195,28 @@ export function generateByColumn({
   const columnClassNames: CSSRuleObject[] = [];
 
   classNames.forEach((obj) => {
-    const columnWidthCalc = calculateColumnWidth(
+    const columnWidthCalc = calculateColumnWidth({
       cols,
       innerGutterVar,
       containerGridColumnsVar,
-      gridColumnsVar
-    );
-    const containerColumnWidthCalc = calculateColumnWidth(
+      gridColumnsVar,
+    });
+
+    const containerColumnWidthCalc = calculateContainerColumnWidth({
       cols,
       innerGutterVar,
       containerGridColumnsVar,
-      gridColumnsVar
-    );
-    const viewportColumnWidthCalc = calculateViewportColumnWidth(
-      cols,
+      gridColumnsVar,
+    });
+
+    const viewportColumnWidthCalc = calculateViewportColumnWidth({
+      cols: cols,
       containerWidthVar,
       scrollbarVisibleWidthVar,
       innerGutterVar,
       outerGutterVar,
-      gridColumnsVar
-    );
+      gridColumnsVar,
+    });
 
     const generatedClasses = generateClassNames({
       variant: String(cols),
@@ -149,14 +234,19 @@ export function generateByColumn({
 }
 
 /**
- * This function generates CSS rules for a given number of columns.
- * It loops over the columns and calls `generateByColumn` for each column.
- * The generated CSS rules are then returned as an array of CSSRuleObjects.
+ * Generates CSS rules for a given number of columns in a grid layout.
  *
- * @param {Object} params - The parameters for generating the CSS rules.
- * @param {number} params.maxColAmount - The maximum number of columns for which to generate CSS rules.
- * @param {function} params.e - A function that takes a className as an argument and returns a string.
- * @returns {CSSRuleObject[]} An array of CSSRuleObjects, each representing a CSS rule for a column.
+ * The function takes an object with two properties: `maxColAmount` and `e`.
+ * - `maxColAmount` is the maximum number of columns for which to generate CSS rules.
+ * - `e` is a function that takes a className as an argument and returns a string.
+ *
+ * The function generates CSS rules for each column up to the maximum number of columns, taking into account the className function.
+ * The result is an array of CSSRuleObjects, each representing a CSS rule for a column in the grid.
+ *
+ * @param params The parameters for generating the CSS rules.
+ * @param params.maxColAmount The maximum number of columns for which to generate CSS rules.
+ * @param params.e A function that takes a className as an argument and returns a string.
+ * @returns An array of CSSRuleObjects, each representing a CSS rule for a column.
  */
 export function generateColumns({
   maxColAmount,

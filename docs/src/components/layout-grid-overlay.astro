@@ -1,0 +1,37 @@
+<layout-overlay>
+  <button class="layout-overlay-toggle"></button>
+  <div class="layout-overlay-grid" hidden></div>
+</layout-overlay>
+
+<script>
+  class LayoutOverlay extends HTMLElement {
+    constructor() {
+      super();
+
+      this.classList.add("layout-overlay");
+
+      const toggleButton = this.querySelector("button");
+      const gridOverlay = this.querySelector<HTMLDivElement>(
+        ".layout-overlay-grid"
+      );
+
+      if (!toggleButton || !gridOverlay) {
+        throw new Error("Could not find layout overlay elements");
+      }
+
+      // Each time the button is clicked, update the count.
+      toggleButton?.addEventListener("click", () => {
+        gridOverlay.hidden = !gridOverlay.hidden;
+      });
+
+      document.addEventListener("keydown", (event) => {
+        // Check if either cmd (on Mac) or ctrl (on Windows) and 'g' are pressed
+        if (event.metaKey && event.key === "g") {
+          gridOverlay.hidden = !gridOverlay.hidden;
+        }
+      });
+    }
+  }
+
+  customElements.define("layout-overlay", LayoutOverlay);
+</script>

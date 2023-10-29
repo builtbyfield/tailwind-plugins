@@ -26,3 +26,4 @@ export type ContainerWidthsThemeOption = string | KeyValuePair;
 export type ColumnCountsThemeOption = string | KeyValuePair;
 export type InnerGuttersThemeOption = string | KeyValuePair;
 export type OuterGuttersThemeOption = string | KeyValuePair;
+export type GridColumnBackgroundColorThemeOption = string;
