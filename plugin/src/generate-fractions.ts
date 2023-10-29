@@ -1,4 +1,4 @@
-import { calc } from "@vanilla-extract/css-utils";
+import { calc } from "css-calc-utils";
 import { fallbackCSSVar } from "css-var-utils";
 
 import { classNames } from "./class-names";

@@ -1,4 +1,4 @@
-import { calc } from "@vanilla-extract/css-utils";
+import { calc } from "css-calc-utils";
 
 import type { ClassNameDefinition, CSSRuleObject } from "./types";
 import { innerGutterVar } from "./vars";

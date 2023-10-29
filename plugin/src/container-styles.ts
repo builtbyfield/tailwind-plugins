@@ -1,4 +1,4 @@
-import { calc } from "@vanilla-extract/css-utils";
+import { calc } from "css-calc-utils";
 import { assignCSSVar, fallbackCSSVar } from "css-var-utils";
 
 import type { CSSRuleObject } from "./types";

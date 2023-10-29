@@ -44,6 +44,27 @@ importers:
         specifier: ^5.2.2
         version: 5.2.2
 
+  packages/css-calc-utils:
+    devDependencies:
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^6.2.1
+        version: 6.8.0(@typescript-eslint/parser@6.8.0)(eslint@8.52.0)(typescript@5.2.2)
+      '@typescript-eslint/parser':
+        specifier: ^6.2.1
+        version: 6.8.0(eslint@8.52.0)(typescript@5.2.2)
+      eslint:
+        specifier: ^8.46.0
+        version: 8.52.0
+      eslint-plugin-simple-import-sort:
+        specifier: ^10.0.0
+        version: 10.0.0(eslint@8.52.0)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+      vitest:
+        specifier: ^0.34.6
+        version: 0.34.6
+
   packages/css-var-utils:
     devDependencies:
       '@types/cssesc':
@@ -73,24 +94,18 @@ importers:
 
   plugin:
     devDependencies:
-      '@types/cssesc':
-        specifier: ^3.0.1
-        version: 3.0.1
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.2.1
         version: 6.8.0(@typescript-eslint/parser@6.8.0)(eslint@8.52.0)(typescript@5.2.2)
       '@typescript-eslint/parser':
         specifier: ^6.2.1
         version: 6.8.0(eslint@8.52.0)(typescript@5.2.2)
-      '@vanilla-extract/css-utils':
-        specifier: ^0.1.3
-        version: 0.1.3
+      css-calc-utils:
+        specifier: workspace:css-calc-utils
+        version: link:../packages/css-calc-utils
       css-var-utils:
         specifier: workspace:css-var-utils
         version: link:../packages/css-var-utils
-      cssesc:
-        specifier: ^3.0.0
-        version: 3.0.0
       csstype:
         specifier: ^3.1.2
         version: 3.1.2
@@ -1359,10 +1374,6 @@ packages:
 
   /@ungap/structured-clone@1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
-
-  /@vanilla-extract/css-utils@0.1.3:
-    resolution: {integrity: sha512-PZAcHROlgtCUGI2y0JntdNwvPwCNyeVnkQu6KTYKdmxBbK3w72XJUmLFYapfaFfgami4I9CTLnrJTPdtmS3gpw==}
-    dev: true
 
   /@vitest/expect@0.34.6:
     resolution: {integrity: sha512-QUzKpUQRc1qC7qdGo7rMK3AkETI7w18gTCUrsNnyjjJKYiuUB9+TQK3QnR1unhCnWRC0AbKv2omLGQDF/mIjOw==}
@@ -4631,6 +4642,7 @@ packages:
 
   /safe-buffer@5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
+    requiresBuild: true
     dev: false
 
   /safer-buffer@2.1.2:
@@ -4835,6 +4847,7 @@ packages:
 
   /string_decoder@1.3.0:
     resolution: {integrity: sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==}
+    requiresBuild: true
     dependencies:
       safe-buffer: 5.2.1
     dev: false
